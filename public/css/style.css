@@ -696,6 +696,10 @@ body::before {
 .bg-secondary { background: linear-gradient(135deg, #6b7280, #4b5563) !important; }
 .bg-primary { background: linear-gradient(135deg, #6366f1, #7c3aed) !important; }
 
+/* ===== OVERRIDE BOOTSTRAP TEXT COLORS ===== */
+.text-muted { color: var(--text-muted) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+
 /* ===== LINKS ===== */
 a {
   color: var(--primary-light);
