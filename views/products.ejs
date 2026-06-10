@@ -1,0 +1,74 @@
+<%- include('layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <div class="d-flex align-items-center gap-3 mb-4">
+    <h3 class="fw-bold mb-0" style="padding-left: 1rem; border-left: 4px solid #6366f1;">สินค้าทั้งหมด</h3>
+    <% if (selectedCategory) { %>
+      <span class="badge bg-primary"><%= selectedCategory %></span>
+    <% } %>
+  </div>
+
+  <form class="row g-2 mb-4" method="GET">
+    <div class="col-md-5">
+      <div class="input-group">
+        <span class="input-group-text bg-transparent border-end-0" style="border-color: var(--border-glass);">
+          <i class="bi bi-search text-muted"></i>
+        </span>
+        <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="ค้นหาสินค้า..." value="<%= search %>">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <select name="category" class="form-select">
+        <option value="">ทั้งหมด</option>
+        <% categories.forEach(cat => { %>
+          <option value="<%= cat %>" <%= selectedCategory === cat ? 'selected' : '' %>><%= cat %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">
+        <i class="bi bi-search me-1"></i> ค้นหา
+      </button>
+    </div>
+  </form>
+
+  <div class="row g-4">
+    <% if (products.length === 0) { %>
+      <div class="col-12">
+        <div class="empty-state">
+          <i class="bi bi-search"></i>
+          <p>ไม่พบสินค้า</p>
+          <a href="/products" class="btn btn-outline-primary">ล้างการค้นหา</a>
+        </div>
+      </div>
+    <% } else { %>
+      <% products.forEach((product, idx) => { %>
+        <div class="col-6 col-md-4 col-lg-3 animate-fade" style="animation-delay: <%= 0.05 * idx %>s;">
+          <div class="card h-100">
+            <div class="position-relative overflow-hidden" style="border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+              <img src="/uploads/<%= product.image %>" class="card-img-top" alt="<%= product.name %>" onerror="this.src='/uploads/default.svg'">
+              <div class="position-absolute top-0 end-0 m-2">
+                <span class="badge bg-secondary"><%= product.category %></span>
+              </div>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h6 class="card-title text-truncate"><%= product.name %></h6>
+              <p class="price mb-1">฿<%= product.price.toFixed(2) %></p>
+              <% if (product.stock > 0) { %>
+                <small class="stock-info mb-3">คงเหลือ <%= product.stock %> ชิ้น</small>
+                <a href="/products/<%= product._id %>" class="btn btn-outline-primary btn-sm mt-auto w-100">
+                  <i class="bi bi-cart-plus me-1"></i> ซื้อเลย
+                </a>
+              <% } else { %>
+                <small class="text-danger mb-2"><i class="bi bi-x-circle"></i> สินค้าหมด</small>
+                <button class="btn btn-secondary btn-sm mt-auto w-100" disabled>หมด</button>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+</div>
+
+<%- include('layout/footer') %>

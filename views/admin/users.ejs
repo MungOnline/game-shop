@@ -1,0 +1,53 @@
+<%- include('../layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <h3 class="fw-bold mb-4" style="padding-left: 1rem; border-left: 4px solid #6366f1;">
+    <i class="bi bi-people me-2"></i> จัดการผู้ใช้
+  </h3>
+
+  <div class="card p-0">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>วันที่</th>
+            <th>ชื่อผู้ใช้</th>
+            <th>อีเมล</th>
+            <th>ยอดเงิน</th>
+            <th>สิทธิ์</th>
+            <th class="text-end"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(u => { %>
+            <tr>
+              <td class="small"><%= new Date(u.createdAt).toLocaleString('th-TH') %></td>
+              <td><strong><%= u.username %></strong></td>
+              <td><%= u.email %></td>
+              <td class="fw-bold" style="color: var(--accent);">฿<%= u.balance.toFixed(2) %></td>
+              <td>
+                <span class="badge <%= u.role === 'admin' ? 'bg-danger' : 'bg-secondary' %>">
+                  <%= u.role === 'admin' ? 'แอดมิน' : 'ผู้ใช้' %>
+                </span>
+              </td>
+              <td class="text-end">
+                <% if (u._id.toString() !== user.id) { %>
+                  <form action="/admin/users/toggle-admin/<%= u._id %>" method="POST">
+                    <button type="submit" class="btn btn-sm <%= u.role === 'admin' ? 'btn-outline-warning' : 'btn-outline-primary' %>">
+                      <i class="bi bi-shield me-1"></i>
+                      <%= u.role === 'admin' ? 'ยกเลิกแอดมิน' : 'ตั้งเป็นแอดมิน' %>
+                    </button>
+                  </form>
+                <% } else { %>
+                  <span class="text-muted small">(คุณ)</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('../layout/footer') %>

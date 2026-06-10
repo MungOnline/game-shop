@@ -1,0 +1,90 @@
+<%- include('../layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+    <h3 class="fw-bold mb-0" style="padding-left: 1rem; border-left: 4px solid #6366f1;">
+      <i class="bi bi-box-seam me-2"></i> จัดการสินค้า
+    </h3>
+    <a href="/admin/products/create" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> เพิ่มสินค้า</a>
+  </div>
+
+  <div class="card p-0">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th style="width: 60px;">รูป</th>
+            <th>ชื่อสินค้า</th>
+            <th>ราคา</th>
+            <th>สต็อก</th>
+            <th>ขายแล้ว</th>
+            <th>หมวด</th>
+            <th>สถานะ</th>
+            <th class="text-end">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(product => { %>
+            <tr>
+              <td>
+                <img src="/uploads/<%= product.image %>" style="width: 44px; height: 44px; object-fit: cover; border-radius: var(--radius-sm);" onerror="this.src='/uploads/default.svg'">
+              </td>
+              <td><strong><%= product.name %></strong></td>
+              <td>฿<%= product.price.toFixed(2) %></td>
+              <td><%= product.stock %></td>
+              <td><%= product.sold %></td>
+              <td><span class="badge bg-secondary"><%= product.category %></span></td>
+              <td>
+                <form action="/admin/products/toggle/<%= product._id %>" method="POST" class="d-inline">
+                  <button type="submit" class="btn btn-sm <%= product.isActive ? 'btn-success' : 'btn-secondary' %>" style="min-width: 50px;">
+                    <%= product.isActive ? 'เปิด' : 'ปิด' %>
+                  </button>
+                </form>
+              </td>
+              <td class="text-end">
+                <div class="d-flex gap-1 justify-content-end">
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#codesModal<%= product._id %>" title="เพิ่มรหัส">
+                    <i class="bi bi-key"></i>
+                  </button>
+                  <a href="/admin/products/edit/<%= product._id %>" class="btn btn-sm btn-outline-warning" title="แก้ไข">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <form action="/admin/products/delete/<%= product._id %>" method="POST" class="d-inline" onsubmit="return confirm('ลบสินค้านี้?')">
+                    <button type="submit" class="btn btn-sm btn-outline-danger" title="ลบ">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<% products.forEach(product => { %>
+  <div class="modal fade" id="codesModal<%= product._id %>">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold"><i class="bi bi-key me-2" style="color: var(--accent);"></i> เพิ่มรหัส: <%= product.name %></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form action="/admin/products/add-codes/<%= product._id %>" method="POST">
+          <div class="modal-body">
+            <label class="form-label">รหัสสินค้า (1 บรรทัดต่อ 1 รหัส)</label>
+            <textarea name="codes" class="form-control" rows="8" placeholder="CODE-XXXX-XXXX&#10;CODE-YYYY-YYYY"></textarea>
+            <small class="text-muted">รหัสที่มีอยู่แล้ว: <strong class="text-warning"><%= product.codes.length %></strong> รหัส</small>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> เพิ่มรหัส</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<% }) %>
+
+<%- include('../layout/footer') %>

@@ -1,0 +1,120 @@
+<%- include('layout/header') %>
+
+<section class="hero-section text-white text-center">
+  <div class="container">
+    <i class="bi bi-controller hero-floating-icon" style="top: 15%; left: 10%; animation-delay: 0s;"></i>
+    <i class="bi bi-joystick hero-floating-icon" style="top: 25%; right: 12%; animation-delay: 1s;"></i>
+    <i class="bi bi-dice-6 hero-floating-icon" style="bottom: 20%; left: 15%; animation-delay: 2s;"></i>
+    <i class="bi bi-trophy hero-floating-icon" style="bottom: 30%; right: 18%; animation-delay: 0.5s;"></i>
+
+    <h1 class="display-4 fw-bold mb-3">GameCodeShop</h1>
+    <p class="lead mb-4">ร้านขายรหัสเกมส์ ราคาถูก จัดส่งอัตโนมัติทันที</p>
+    <a href="/products" class="btn btn-light btn-lg px-5">
+      <i class="bi bi-grid me-2"></i> ดูสินค้าทั้งหมด
+    </a>
+  </div>
+</section>
+
+<section class="container" style="margin-top: -30px;">
+  <div class="row g-3">
+    <div class="col-6 col-md-3 animate-fade-1">
+      <div class="stat-card">
+        <h2 style="background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><%= stats.users.toLocaleString() %></h2>
+        <small>ผู้ใช้ทั้งหมด</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 animate-fade-2">
+      <div class="stat-card">
+        <h2 style="background: linear-gradient(135deg, #06b6d4, #0891b2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><%= stats.products.toLocaleString() %></h2>
+        <small>สินค้าในระบบ</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 animate-fade-1">
+      <div class="stat-card">
+        <h2 style="background: linear-gradient(135deg, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><%= stats.available.toLocaleString() %></h2>
+        <small>สินค้าพร้อมจำหน่าย</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 animate-fade-2">
+      <div class="stat-card">
+        <h2 style="background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><%= stats.sold.toLocaleString() %></h2>
+        <small>จำหน่ายแล้ว</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-5">
+  <div class="section-header">
+    <h3>สินค้าแนะนำ</h3>
+    <a href="/products" class="btn btn-outline-primary btn-sm">ดูทั้งหมด <i class="bi bi-arrow-right ms-1"></i></a>
+  </div>
+  <div class="row g-4">
+    <% if (products.length === 0) { %>
+      <div class="col-12">
+        <div class="empty-state">
+          <i class="bi bi-box-seam"></i>
+          <p>ยังไม่มีสินค้า</p>
+        </div>
+      </div>
+    <% } else { %>
+      <% products.forEach((product, idx) => { %>
+        <div class="col-6 col-md-4 col-lg-3 animate-fade" style="animation-delay: <%= 0.05 * idx %>s;">
+          <div class="card h-100">
+            <div class="position-relative overflow-hidden" style="border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+              <img src="/uploads/<%= product.image %>" class="card-img-top" alt="<%= product.name %>" onerror="this.src='/uploads/default.svg'">
+              <div class="position-absolute top-0 end-0 m-2">
+                <span class="badge bg-primary"><%= product.category %></span>
+              </div>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h6 class="card-title text-truncate"><%= product.name %></h6>
+              <p class="price mb-1">฿<%= product.price.toFixed(2) %></p>
+              <small class="stock-info mb-3">คงเหลือ <%= product.stock %> ชิ้น</small>
+              <a href="/products/<%= product._id %>" class="btn btn-outline-primary btn-sm mt-auto w-100">
+                <i class="bi bi-cart-plus me-1"></i> ดูรายละเอียด
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+
+<section class="container mt-5">
+  <div class="section-header">
+    <h3>บริการของเรา</h3>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-4 animate-fade-1">
+      <a href="/products" class="text-decoration-none">
+        <div class="service-card">
+          <i class="bi bi-box-seam" style="color: #6366f1;"></i>
+          <h5>ซื้อไอดีเกมส์</h5>
+          <small>เลือกซื้อสินค้ามากมาย ราคาถูก</small>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 animate-fade-2">
+      <a href="/topup" class="text-decoration-none">
+        <div class="service-card">
+          <i class="bi bi-wallet2" style="color: #10b981;"></i>
+          <h5>เติมเงิน</h5>
+          <small>เติมเงินเข้ากระเป๋า รอแอดมินอนุมัติ</small>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 animate-fade-3">
+      <a href="/info" class="text-decoration-none">
+        <div class="service-card">
+          <i class="bi bi-headset" style="color: #06b6d4;"></i>
+          <h5>ติดต่อแอดมิน</h5>
+          <small>สอบถามปัญหา แจ้งเหตุขัดข้อง</small>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<%- include('layout/footer') %>

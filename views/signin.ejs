@@ -1,0 +1,33 @@
+<%- include('layout/header') %>
+
+<div class="container mt-5 animate-fade">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card auth-card">
+        <div class="auth-header">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <h4>ยินดีต้อนรับกลับ</h4>
+          <p class="text-muted small">เข้าสู่ระบบเพื่อดำเนินการต่อ</p>
+        </div>
+        <form action="/auth/signin" method="POST">
+          <div class="mb-3">
+            <label class="form-label">อีเมล</label>
+            <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">รหัสผ่าน</label>
+            <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 py-2">
+            <i class="bi bi-box-arrow-in-right me-2"></i> เข้าสู่ระบบ
+          </button>
+        </form>
+        <p class="text-center mt-4 mb-0 text-muted small">
+          ยังไม่มีบัญชี? <a href="/auth/signup" class="fw-bold">สมัครสมาชิก</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('layout/footer') %>

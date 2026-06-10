@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <i class="bi bi-controller"></i> GameCodeShop
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: none; padding: 0;">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house"></i> หน้าหลัก</a></li>
+          <li class="nav-item"><a class="nav-link" href="/products"><i class="bi bi-grid"></i> สินค้าทั้งหมด</a></li>
+          <li class="nav-item"><a class="nav-link" href="/topup"><i class="bi bi-wallet2"></i> เติมเงิน</a></li>
+          <li class="nav-item"><a class="nav-link" href="/blog"><i class="bi bi-question-circle"></i> ช่วยเหลือ</a></li>
+          <li class="nav-item"><a class="nav-link" href="/info"><i class="bi bi-envelope"></i> ติดต่อเรา</a></li>
+        </ul>
+        <ul class="navbar-nav align-items-lg-center gap-1">
+          <% if (user) { %>
+            <li class="nav-item">
+              <a class="nav-link position-relative" href="/cart">
+                <i class="bi bi-cart3"></i> ตะกร้า
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" data-bs-toggle="dropdown">
+                <i class="bi bi-person-circle fs-5"></i>
+                <span><%= user.username %></span>
+                <span class="user-balance">฿<%= user.balance.toLocaleString() %></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="/cart/orders"><i class="bi bi-clock-history"></i> ประวัติการสั่งซื้อ</a></li>
+                <li><a class="dropdown-item" href="/topup"><i class="bi bi-wallet2"></i> เติมเงิน</a></li>
+                <% if (user.role === 'admin') { %>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/admin"><i class="bi bi-shield-lock"></i> <span class="text-danger">แผงแอดมิน</span></a></li>
+                <% } %>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/auth/logout"><i class="bi bi-box-arrow-right"></i> ออกจากระบบ</a></li>
+              </ul>
+            </li>
+          <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/signin"><i class="bi bi-box-arrow-in-right"></i> เข้าสู่ระบบ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-primary text-white px-3" href="/auth/signup" style="border-radius: 100px; padding: 0.4rem 1.2rem !important;"><i class="bi bi-person-plus"></i> สมัครสมาชิก</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div style="padding-top: 70px;">
+    <% if (success && success.length > 0) { %>
+      <div class="container mt-3 animate-slide-up">
+        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2">
+          <i class="bi bi-check-circle-fill fs-5"></i>
+          <span><%= success[0] %></span>
+          <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+        </div>
+      </div>
+    <% } %>
+    <% if (error && error.length > 0) { %>
+      <div class="container mt-3 animate-slide-up">
+        <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2">
+          <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+          <span><%= error[0] %></span>
+          <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+        </div>
+      </div>
+    <% } %>
+  </div>

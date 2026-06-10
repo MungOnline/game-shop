@@ -1,0 +1,41 @@
+<%- include('layout/header') %>
+
+<div class="container mt-5 animate-fade">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card auth-card">
+        <div class="auth-header">
+          <i class="bi bi-person-plus"></i>
+          <h4>สร้างบัญชีใหม่</h4>
+          <p class="text-muted small">สมัครสมาชิกเพื่อเริ่มต้นซื้อสินค้า</p>
+        </div>
+        <form action="/auth/signup" method="POST">
+          <div class="mb-3">
+            <label class="form-label">ชื่อผู้ใช้</label>
+            <input type="text" name="username" class="form-control" placeholder="username" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">อีเมล</label>
+            <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">รหัสผ่าน</label>
+            <input type="password" name="password" class="form-control" placeholder="อย่างน้อย 6 ตัวอักษร" required minlength="6">
+          </div>
+          <div class="mb-4">
+            <label class="form-label">ยืนยันรหัสผ่าน</label>
+            <input type="password" name="confirmPassword" class="form-control" placeholder="ใส่รหัสผ่านอีกครั้ง" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 py-2">
+            <i class="bi bi-person-plus me-2"></i> สมัครสมาชิก
+          </button>
+        </form>
+        <p class="text-center mt-4 mb-0 text-muted small">
+          มีบัญชีแล้ว? <a href="/auth/signin" class="fw-bold">เข้าสู่ระบบ</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('layout/footer') %>

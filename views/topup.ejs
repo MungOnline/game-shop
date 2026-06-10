@@ -1,0 +1,52 @@
+<%- include('layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <h3 class="fw-bold mb-4" style="padding-left: 1rem; border-left: 4px solid #6366f1;">
+    <i class="bi bi-wallet2 me-2"></i> เติมเงิน
+  </h3>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card p-4">
+        <div class="text-center mb-4">
+          <i class="bi bi-wallet2 fs-1" style="color: var(--accent);"></i>
+          <h5 class="fw-bold mt-2">ยอดเงินปัจจุบันของคุณ</h5>
+          <h2 class="fw-bold" style="background: linear-gradient(135deg, #10b981, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            ฿<%= user.balance.toLocaleString() %>
+          </h2>
+        </div>
+
+        <hr style="border-color: var(--border-glass);">
+
+        <form action="/topup" method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label class="form-label">จำนวนเงิน (บาท)</label>
+            <div class="input-group">
+              <span class="input-group-text bg-transparent" style="border-color: var(--border-glass);">฿</span>
+              <input type="number" name="amount" class="form-control" min="10" step="any" required placeholder="ขั้นต่ำ 10 บาท">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">อัปโหลดสลิปโอนเงิน</label>
+            <input type="file" name="slip" class="form-control" accept="image/*">
+            <small class="text-muted">อัปโหลดสลิปเพื่อยืนยันการโอน</small>
+          </div>
+          <div class="mb-4 p-3 rounded-3" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass);">
+            <p class="small text-muted mb-0">
+              <i class="bi bi-info-circle me-1"></i>
+              โอนเงินเข้าบัญชี: <br>
+              <strong>ธนาคาร xxx</strong> สาขา xxx <br>
+              เลขบัญชี: <strong class="text-warning">xxx-x-xxxxx-x</strong> <br>
+              ชื่อบัญชี: xxxxxxxxx
+            </p>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 py-2">
+            <i class="bi bi-send me-2"></i> ส่งคำขอเติมเงิน
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('layout/footer') %>

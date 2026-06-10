@@ -1,0 +1,97 @@
+<%- include('../layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <h3 class="fw-bold mb-4" style="padding-left: 1rem; border-left: 4px solid #6366f1;">
+    <i class="bi bi-shield-lock me-2"></i> แผงควบคุมแอดมิน
+  </h3>
+
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3 animate-fade-1">
+      <div class="stat-card" style="border-color: rgba(99, 102, 241, 0.3);">
+        <h2 style="background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><%= stats.users %></h2>
+        <small>ผู้ใช้ทั้งหมด</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 animate-fade-1">
+      <div class="stat-card" style="border-color: rgba(6, 182, 212, 0.3);">
+        <h2 style="background: linear-gradient(135deg, #06b6d4, #0891b2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><%= stats.products %></h2>
+        <small>สินค้าทั้งหมด</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 animate-fade-2">
+      <div class="stat-card" style="border-color: rgba(16, 185, 129, 0.3);">
+        <h2 style="background: linear-gradient(135deg, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><%= stats.orders %></h2>
+        <small>ออเดอร์ทั้งหมด</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 animate-fade-2">
+      <div class="stat-card" style="border-color: rgba(245, 158, 11, 0.3);">
+        <h2 style="background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><%= stats.pendingTopups %></h2>
+        <small>เติมเงินที่รออนุมัติ</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <a href="/admin/products" class="admin-quick-link">
+        <i class="bi bi-box-seam" style="color: #6366f1;"></i>
+        <strong>จัดการสินค้า</strong>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="/admin/orders" class="admin-quick-link">
+        <i class="bi bi-receipt" style="color: #06b6d4;"></i>
+        <strong>จัดการออเดอร์</strong>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="/admin/topups" class="admin-quick-link">
+        <i class="bi bi-wallet2" style="color: #10b981;"></i>
+        <strong>จัดการเติมเงิน</strong>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="/admin/users" class="admin-quick-link">
+        <i class="bi bi-people" style="color: #f59e0b;"></i>
+        <strong>จัดการผู้ใช้</strong>
+      </a>
+    </div>
+  </div>
+
+  <div class="card p-4">
+    <h5 class="fw-bold mb-3"><i class="bi bi-clock-history me-2" style="color: var(--accent);"></i> ออเดอร์ล่าสุด</h5>
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>วันที่</th>
+            <th>ผู้ใช้</th>
+            <th>ยอดรวม</th>
+            <th>สถานะ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% recentOrders.forEach(order => { %>
+            <tr>
+              <td class="small"><%= new Date(order.createdAt).toLocaleString('th-TH') %></td>
+              <td><%= order.user ? order.user.username : 'N/A' %></td>
+              <td class="fw-bold">฿<%= order.total.toFixed(2) %></td>
+              <td>
+                <% if (order.status === 'completed') { %>
+                  <span class="badge bg-success">สำเร็จ</span>
+                <% } else if (order.status === 'pending') { %>
+                  <span class="badge bg-warning">รอ</span>
+                <% } else { %>
+                  <span class="badge bg-danger">ยกเลิก</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('../layout/footer') %>

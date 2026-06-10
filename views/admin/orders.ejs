@@ -1,0 +1,54 @@
+<%- include('../layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <h3 class="fw-bold mb-4" style="padding-left: 1rem; border-left: 4px solid #6366f1;">
+    <i class="bi bi-receipt me-2"></i> จัดการออเดอร์
+  </h3>
+
+  <div class="card p-0">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>วันที่</th>
+            <th>ผู้ใช้</th>
+            <th>สินค้า</th>
+            <th>ยอดรวม</th>
+            <th>สถานะ</th>
+            <th class="text-end"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orders.forEach(order => { %>
+            <tr>
+              <td class="small"><%= new Date(order.createdAt).toLocaleString('th-TH') %></td>
+              <td><%= order.user ? order.user.username : 'N/A' %></td>
+              <td><%= order.items.map(i => i.productName).join(', ') %></td>
+              <td class="fw-bold">฿<%= order.total.toFixed(2) %></td>
+              <td>
+                <% if (order.status === 'completed') { %>
+                  <span class="badge bg-success">สำเร็จ</span>
+                <% } else if (order.status === 'pending') { %>
+                  <span class="badge bg-warning">รอดำเนินการ</span>
+                <% } else { %>
+                  <span class="badge bg-danger">ยกเลิก</span>
+                <% } %>
+              </td>
+              <td class="text-end">
+                <% if (order.status !== 'cancelled') { %>
+                  <form action="/admin/orders/cancel/<%= order._id %>" method="POST" onsubmit="return confirm('ยกเลิกออเดอร์นี้?')">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-x-circle me-1"></i> ยกเลิก
+                    </button>
+                  </form>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('../layout/footer') %>

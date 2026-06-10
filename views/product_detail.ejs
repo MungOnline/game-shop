@@ -1,0 +1,60 @@
+<%- include('layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">หน้าหลัก</a></li>
+      <li class="breadcrumb-item"><a href="/products">สินค้า</a></li>
+      <li class="breadcrumb-item active"><%= product.name %></li>
+    </ol>
+  </nav>
+
+  <div class="row g-5 mt-2">
+    <div class="col-lg-5">
+      <div class="product-detail-image">
+        <img src="/uploads/<%= product.image %>" alt="<%= product.name %>" onerror="this.src='/uploads/default.svg'" class="w-100 rounded-4">
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <span class="badge bg-primary mb-2"><%= product.category %></span>
+      <h2 class="fw-bold mb-3"><%= product.name %></h2>
+      <p class="text-secondary mb-4 lh-lg"><%= product.description || 'ไม่มีรายละเอียดสินค้า' %></p>
+
+      <div class="price-tag mb-4">฿<%= product.price.toFixed(2) %></div>
+
+      <div class="d-flex flex-wrap gap-2 mb-4">
+        <span class="info-chip"><i class="bi bi-box me-1"></i> คงเหลือ <strong><%= product.stock %></strong> ชิ้น</span>
+        <span class="info-chip"><i class="bi bi-graph-up-arrow me-1"></i> ขายแล้ว <strong><%= product.sold %></strong> ชิ้น</span>
+      </div>
+
+      <hr style="border-color: var(--border-glass);">
+
+      <% if (user) { %>
+        <% if (product.stock > 0) { %>
+          <form action="/cart/add/<%= product._id %>" method="POST" class="mt-4">
+            <div class="d-flex align-items-center gap-3 flex-wrap">
+              <div class="d-flex align-items-center gap-2">
+                <label class="form-label mb-0">จำนวน:</label>
+                <input type="number" name="quantity" class="form-control" value="1" min="1" max="<%= product.stock %>" style="width: 80px; text-align: center;">
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg px-4">
+                <i class="bi bi-cart-plus me-2"></i> เพิ่มลงตะกร้า
+              </button>
+            </div>
+          </form>
+        <% } else { %>
+          <div class="alert alert-danger mt-3">
+            <i class="bi bi-x-circle me-2"></i> สินค้าหมดชั่วคราว
+          </div>
+        <% } %>
+      <% } else { %>
+        <div class="alert alert-info mt-3 d-flex align-items-center gap-2" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.3); color: #67e8f9;">
+          <i class="bi bi-info-circle fs-5"></i>
+          <span>กรุณา<a href="/auth/signin" class="text-white fw-bold">เข้าสู่ระบบ</a>ก่อนสั่งซื้อ</span>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include('layout/footer') %>

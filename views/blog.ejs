@@ -1,0 +1,110 @@
+<%- include('layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <h3 class="fw-bold mb-4" style="padding-left: 1rem; border-left: 4px solid #6366f1;">
+    <i class="bi bi-question-circle me-2"></i> ช่วยเหลือ
+  </h3>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card p-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-cart-check me-2" style="color: var(--primary-light);"></i> วิธีการสั่งซื้อ</h5>
+        <div class="d-flex flex-column gap-3">
+          <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background: rgba(255,255,255,0.03);">
+            <span class="badge bg-primary fs-6" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">1</span>
+            <div>
+              <strong>สมัครสมาชิก</strong>
+              <p class="mb-0 text-muted small">สมัครสมาชิกและเข้าสู่ระบบให้เรียบร้อย</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background: rgba(255,255,255,0.03);">
+            <span class="badge bg-primary fs-6" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">2</span>
+            <div>
+              <strong>เลือกสินค้า</strong>
+              <p class="mb-0 text-muted small">เลือกสินค้าที่ต้องการจากร้านค้าของเรา</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background: rgba(255,255,255,0.03);">
+            <span class="badge bg-primary fs-6" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">3</span>
+            <div>
+              <strong>เพิ่มลงตะกร้า</strong>
+              <p class="mb-0 text-muted small">เพิ่มสินค้าลงตะกร้าและตรวจสอบรายการ</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background: rgba(255,255,255,0.03);">
+            <span class="badge bg-primary fs-6" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">4</span>
+            <div>
+              <strong>ชำระเงิน</strong>
+              <p class="mb-0 text-muted small">กดชำระเงิน ระบบจะตัดเงินจากยอดคงเหลือของคุณ</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background: rgba(255,255,255,0.03);">
+            <span class="badge bg-success fs-6" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">5</span>
+            <div>
+              <strong>รับรหัสสินค้า</strong>
+              <p class="mb-0 text-muted small">ระบบจะแสดงรหัสสินค้าทันทีหลังชำระเงินสำเร็จ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-4 mt-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-wallet2 me-2" style="color: #10b981;"></i> การเติมเงิน</h5>
+        <ol class="text-muted lh-lg">
+          <li>ไปที่หน้าเติมเงิน</li>
+          <li>กรอกจำนวนเงินที่ต้องการเติม</li>
+          <li>โอนเงินเข้าบัญชีตามที่ระบุ</li>
+          <li>อัปโหลดสลิปโอนเงิน</li>
+          <li>รอแอดมินอนุมัติ (โดยปกติไม่เกิน 24 ชม.)</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card p-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-exclamation-triangle me-2" style="color: #f59e0b;"></i> ปัญหาที่พบบ่อย</h5>
+        <div class="accordion" id="faqAccordion" style="--bs-accordion-bg: transparent; --bs-accordion-border-color: var(--border-glass); --bs-accordion-btn-color: var(--text-primary); --bs-accordion-body-color: var(--text-secondary); --bs-accordion-active-bg: rgba(99, 102, 241, 0.1);">
+          <div class="accordion-item bg-transparent">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed bg-transparent" data-bs-toggle="collapse" data-bs-target="#faq1">
+                สั่งซื้อแล้วไม่ได้รับรหัส?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body small">ตรวจสอบที่ประวัติการสั่งซื้อ ถ้ายังไม่มีให้ติดต่อแอดมิน</div>
+            </div>
+          </div>
+          <div class="accordion-item bg-transparent">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed bg-transparent" data-bs-toggle="collapse" data-bs-target="#faq2">
+                เติมเงินแล้วไม่ได้เครดิต?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body small">รอแอดมินอนุมัติ หากเกิน 24 ชม. ติดต่อแอดมิน</div>
+            </div>
+          </div>
+          <div class="accordion-item bg-transparent">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed bg-transparent" data-bs-toggle="collapse" data-bs-target="#faq3">
+                รหัสที่ได้ใช้ไม่ได้?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body small">ติดต่อแอดมินพร้อมแนบรหัสและหลักฐานการซื้อ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-4 mt-4 text-center">
+        <i class="bi bi-headset fs-1" style="color: var(--primary-light);"></i>
+        <h5 class="fw-bold mt-2">ยังมีปัญหา?</h5>
+        <p class="text-muted small">ติดต่อแอดมินได้เลย</p>
+        <a href="/info" class="btn btn-primary"><i class="bi bi-chat-dots me-1"></i> ติดต่อเรา</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('layout/footer') %>

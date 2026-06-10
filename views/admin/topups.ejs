@@ -1,0 +1,69 @@
+<%- include('../layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <h3 class="fw-bold mb-4" style="padding-left: 1rem; border-left: 4px solid #6366f1;">
+    <i class="bi bi-wallet2 me-2"></i> จัดการเติมเงิน
+  </h3>
+
+  <div class="card p-0">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>วันที่</th>
+            <th>ผู้ใช้</th>
+            <th>จำนวน</th>
+            <th>สลิป</th>
+            <th>สถานะ</th>
+            <th class="text-end">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% topups.forEach(topup => { %>
+            <tr>
+              <td class="small"><%= new Date(topup.createdAt).toLocaleString('th-TH') %></td>
+              <td><strong><%= topup.user ? topup.user.username : 'N/A' %></strong></td>
+              <td class="fw-bold" style="color: var(--accent);">฿<%= topup.amount.toFixed(2) %></td>
+              <td>
+                <% if (topup.slipImage) { %>
+                  <a href="/uploads/<%= topup.slipImage %>" target="_blank" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-eye me-1"></i> ดูสลิป
+                  </a>
+                <% } else { %>
+                  <span class="text-muted">-</span>
+                <% } %>
+              </td>
+              <td>
+                <% if (topup.status === 'pending') { %>
+                  <span class="badge bg-warning">รออนุมัติ</span>
+                <% } else if (topup.status === 'approved') { %>
+                  <span class="badge bg-success">อนุมัติแล้ว</span>
+                <% } else { %>
+                  <span class="badge bg-danger">ปฏิเสธ</span>
+                <% } %>
+              </td>
+              <td class="text-end">
+                <% if (topup.status === 'pending') { %>
+                  <div class="d-flex gap-1 justify-content-end">
+                    <form action="/admin/topups/approve/<%= topup._id %>" method="POST" class="d-inline">
+                      <button type="submit" class="btn btn-sm btn-success">
+                        <i class="bi bi-check-lg me-1"></i> อนุมัติ
+                      </button>
+                    </form>
+                    <form action="/admin/topups/reject/<%= topup._id %>" method="POST" class="d-inline">
+                      <button type="submit" class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-x-lg me-1"></i> ปฏิเสธ
+                      </button>
+                    </form>
+                  </div>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('../layout/footer') %>
