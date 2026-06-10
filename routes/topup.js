@@ -5,6 +5,7 @@ const path = require('path');
 const User = require('../models/User');
 const Topup = require('../models/Topup');
 const { isAuthenticated } = require('../middleware/auth');
+const { getSettings } = require('../config/settings');
 
 const storage = multer.diskStorage({
   destination: './public/uploads/',
@@ -14,8 +15,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.get('/', isAuthenticated, (req, res) => {
-  res.render('topup', { title: 'เติมเงิน - ร้านขายรหัสเกม' });
+router.get('/', isAuthenticated, async (req, res) => {
+  const settings = await getSettings();
+  res.render('topup', { title: 'เติมเงิน - ร้านขายรหัสเกม', settings });
 });
 
 router.post('/', isAuthenticated, upload.single('slip'), async (req, res) => {

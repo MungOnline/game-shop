@@ -6,7 +6,9 @@ const User = require('../models/User');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
 const Topup = require('../models/Topup');
+const Setting = require('../models/Setting');
 const { isAdmin } = require('../middleware/auth');
+const { getSettings, clearCache } = require('../config/settings');
 
 router.use(isAdmin);
 
@@ -215,6 +217,51 @@ router.post('/users/toggle-admin/:id', async (req, res) => {
     req.flash('error', 'เกิดข้อผิดพลาด');
   }
   res.redirect('/admin/users');
+});
+
+router.get('/settings', async (req, res) => {
+  try {
+    const settings = await getSettings();
+    res.render('admin/settings', { title: 'ตั้งค่าเว็บไซต์ - แอดมิน', settings });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/admin');
+  }
+});
+
+router.post('/settings', async (req, res) => {
+  try {
+    const {
+      facebook, youtube, discord, contactEmail,
+      bankName, bankAccount, bankHolder,
+      workingHoursWeekday, workingHoursWeekend,
+      helpHowToOrder, helpFAQ
+    } = req.body;
+
+    let settings = await Setting.findOne();
+    if (!settings) settings = new Setting();
+
+    settings.facebook = facebook;
+    settings.youtube = youtube;
+    settings.discord = discord;
+    settings.contactEmail = contactEmail;
+    settings.bankName = bankName;
+    settings.bankAccount = bankAccount;
+    settings.bankHolder = bankHolder;
+    settings.workingHoursWeekday = workingHoursWeekday;
+    settings.workingHoursWeekend = workingHoursWeekend;
+    settings.helpHowToOrder = helpHowToOrder;
+    settings.helpFAQ = helpFAQ;
+
+    await settings.save();
+    clearCache();
+    req.flash('success', 'บันทึกการตั้งค่าเรียบร้อย');
+    res.redirect('/admin/settings');
+  } catch (err) {
+    console.error(err);
+    req.flash('error', 'เกิดข้อผิดพลาด');
+    res.redirect('/admin/settings');
+  }
 });
 
 module.exports = router;

@@ -4,6 +4,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const path = require('path');
 const connectDB = require('./config/db');
+const { getSettings } = require('./config/settings');
 
 const app = express();
 
@@ -37,6 +38,15 @@ app.use((req, res, next) => {
     role: req.session.role,
     balance: req.session.balance
   } : null;
+  next();
+});
+
+app.use(async (req, res, next) => {
+  try {
+    res.locals.settings = await getSettings();
+  } catch {
+    res.locals.settings = {};
+  }
   next();
 });
 

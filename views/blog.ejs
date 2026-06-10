@@ -9,6 +9,9 @@
     <div class="col-lg-8">
       <div class="card p-4">
         <h5 class="fw-bold mb-3"><i class="bi bi-cart-check me-2" style="color: var(--primary-light);"></i> วิธีการสั่งซื้อ</h5>
+        <% if (settings.helpHowToOrder) { %>
+          <div class="text-muted lh-lg"><%- settings.helpHowToOrder %></div>
+        <% } else { %>
         <div class="d-flex flex-column gap-3">
           <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background: rgba(255,255,255,0.03);">
             <span class="badge bg-primary fs-6" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">1</span>
@@ -46,6 +49,7 @@
             </div>
           </div>
         </div>
+        <% } %>
       </div>
 
       <div class="card p-4 mt-4">
@@ -63,6 +67,9 @@
     <div class="col-lg-4">
       <div class="card p-4">
         <h5 class="fw-bold mb-3"><i class="bi bi-exclamation-triangle me-2" style="color: #f59e0b;"></i> ปัญหาที่พบบ่อย</h5>
+        <% if (settings.helpFAQ) { %>
+          <div class="text-muted lh-lg"><%- settings.helpFAQ %></div>
+        <% } else { %>
         <div class="accordion" id="faqAccordion" style="--bs-accordion-bg: transparent; --bs-accordion-border-color: var(--border-glass); --bs-accordion-btn-color: var(--text-primary); --bs-accordion-body-color: var(--text-secondary); --bs-accordion-active-bg: rgba(99, 102, 241, 0.1);">
           <div class="accordion-item bg-transparent">
             <h2 class="accordion-header">
@@ -95,6 +102,7 @@
             </div>
           </div>
         </div>
+        <% } %>
       </div>
 
       <div class="card p-4 mt-4 text-center">

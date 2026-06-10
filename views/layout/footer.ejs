@@ -32,9 +32,9 @@
         <div class="col-lg-4">
           <h5>ช่องทางติดต่อ</h5>
           <ul class="list-unstyled small text-muted">
-            <li class="mb-2"><i class="bi bi-facebook me-2 text-primary"></i> Facebook: IJMGamer</li>
-            <li class="mb-2"><i class="bi bi-youtube me-2 text-danger"></i> YouTube: IJMGamer</li>
-            <li class="mb-2"><i class="bi bi-discord me-2 text-primary"></i> Discord: discord.gg/YWqaQbRNBN</li>
+            <li class="mb-2"><i class="bi bi-facebook me-2 text-primary"></i> Facebook: <%= typeof settings !== 'undefined' ? settings.facebook : 'IJMGamer' %></li>
+            <li class="mb-2"><i class="bi bi-youtube me-2 text-danger"></i> YouTube: <%= typeof settings !== 'undefined' ? settings.youtube : 'IJMGamer' %></li>
+            <li class="mb-2"><i class="bi bi-discord me-2 text-primary"></i> Discord: <%= typeof settings !== 'undefined' ? settings.discord : 'discord.gg/YWqaQbRNBN' %></li>
           </ul>
         </div>
       </div>

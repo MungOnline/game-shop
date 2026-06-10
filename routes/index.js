@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 const User = require('../models/User');
-const Order = require('../models/Order');
+const { getSettings } = require('../config/settings');
 
 router.get('/', async (req, res) => {
   try {
@@ -28,12 +28,14 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/info', (req, res) => {
-  res.render('info', { title: 'ติดต่อเรา - ร้านขายรหัสเกม' });
+router.get('/info', async (req, res) => {
+  const settings = await getSettings();
+  res.render('info', { title: 'ติดต่อเรา - ร้านขายรหัสเกม', settings });
 });
 
-router.get('/blog', (req, res) => {
-  res.render('blog', { title: 'ช่วยเหลือ - ร้านขายรหัสเกม' });
+router.get('/blog', async (req, res) => {
+  const settings = await getSettings();
+  res.render('blog', { title: 'ช่วยเหลือ - ร้านขายรหัสเกม', settings });
 });
 
 module.exports = router;

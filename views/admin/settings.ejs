@@ -1,0 +1,84 @@
+<%- include('../layout/header') %>
+
+<div class="container mt-4 animate-fade">
+  <h3 class="fw-bold mb-4" style="padding-left: 1rem; border-left: 4px solid #6366f1;">
+    <i class="bi bi-gear me-2"></i> ตั้งค่าเว็บไซต์
+  </h3>
+
+  <form action="/admin/settings" method="POST" class="row g-4">
+    <div class="col-lg-6">
+      <div class="card p-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-share me-2" style="color: var(--primary-light);"></i> ช่องทางติดต่อ</h5>
+        <div class="mb-3">
+          <label class="form-label">Facebook</label>
+          <input type="text" name="facebook" class="form-control" value="<%= settings.facebook %>">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">YouTube</label>
+          <input type="text" name="youtube" class="form-control" value="<%= settings.youtube %>">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Discord</label>
+          <input type="text" name="discord" class="form-control" value="<%= settings.discord %>">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">อีเมลติดต่อ</label>
+          <input type="text" name="contactEmail" class="form-control" value="<%= settings.contactEmail %>">
+        </div>
+      </div>
+
+      <div class="card p-4 mt-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-clock me-2" style="color: var(--accent);"></i> เวลาทำการ</h5>
+        <div class="mb-3">
+          <label class="form-label">จันทร์ - ศุกร์</label>
+          <input type="text" name="workingHoursWeekday" class="form-control" value="<%= settings.workingHoursWeekday %>">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">เสาร์ - อาทิตย์</label>
+          <input type="text" name="workingHoursWeekend" class="form-control" value="<%= settings.workingHoursWeekend %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card p-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-bank me-2" style="color: #34d399;"></i> ข้อมูลบัญชีธนาคาร</h5>
+        <div class="mb-3">
+          <label class="form-label">ชื่อธนาคาร</label>
+          <input type="text" name="bankName" class="form-control" value="<%= settings.bankName %>">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">เลขบัญชี</label>
+          <input type="text" name="bankAccount" class="form-control" value="<%= settings.bankAccount %>">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">ชื่อบัญชี</label>
+          <input type="text" name="bankHolder" class="form-control" value="<%= settings.bankHolder %>">
+        </div>
+      </div>
+
+      <div class="card p-4 mt-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-question-circle me-2" style="color: #fbbf24;"></i> หน้าช่วยเหลือ</h5>
+        <div class="mb-3">
+          <label class="form-label">วิธีการสั่งซื้อ (HTML)</label>
+          <textarea name="helpHowToOrder" class="form-control" rows="3" placeholder="เขียน HTML สำหรับขั้นตอนการสั่งซื้อ"><%= settings.helpHowToOrder %></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">FAQ (HTML)</label>
+          <textarea name="helpFAQ" class="form-control" rows="3" placeholder="เขียน HTML สำหรับ FAQ"><%= settings.helpFAQ %></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="d-flex gap-2 justify-content-end">
+        <a href="/admin" class="btn btn-outline-light">กลับdashboard</a>
+        <button type="submit" class="btn btn-primary px-5">
+          <i class="bi bi-check-lg me-1"></i> บันทึก
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<%- include('../layout/footer') %>
