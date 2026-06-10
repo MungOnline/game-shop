@@ -13,6 +13,7 @@
     <div class="col-lg-5">
       <div class="product-detail-image">
         <img src="/uploads/<%= product.image %>" alt="<%= product.name %>" onerror="this.src='/uploads/default.svg'" class="w-100 rounded-4">
+        <% if (product.image && product.image.endsWith('.gif')) { %><span class="gif-badge" style="position:absolute;top:15px;left:15px;font-size:0.85rem;padding:4px 14px;">GIF</span><% } %>
       </div>
     </div>
     <div class="col-lg-7">

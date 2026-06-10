@@ -26,8 +26,11 @@
         <tbody>
           <% products.forEach(product => { %>
             <tr>
-              <td>
-                <img src="/uploads/<%= product.image %>" style="width: 44px; height: 44px; object-fit: cover; border-radius: var(--radius-sm);" onerror="this.src='/uploads/default.svg'">
+              <td style="position:relative;">
+                <div style="position:relative;display:inline-block;">
+                  <img src="/uploads/<%= product.image %>" style="width: 44px; height: 44px; object-fit: cover; border-radius: var(--radius-sm); display:block;" onerror="this.src='/uploads/default.svg'">
+                  <% if (product.image && product.image.endsWith('.gif')) { %><span style="position:absolute;bottom:-2px;right:-2px;background:#ff4757;color:white;font-size:0.5rem;font-weight:700;padding:1px 5px;border-radius:3px;line-height:1.2;">GIF</span><% } %>
+                </div>
               </td>
               <td><strong><%= product.name %></strong></td>
               <td>฿<%= product.price.toFixed(2) %></td>
